@@ -1,17 +1,36 @@
-import React from "react";
+import CopyToClipboard, { copyToClipboard } from "react-copy-to-clipboard";
 
-export default function Options() {
+export default function Options({
+  paragraphs,
+  copiedCode,
+  setCopiedCode,
+  includeHtml,
+  setIncludeHtml,
+  setInputValue,
+  tag,
+  setTag,
+}) {
+  setTimeout(() => {
+    setCopiedCode(false);
+  }, 3000);
+
   return (
     <div className="options">
       <div className="wrapper">
         <div className="optionsContainer">
           <div className="paragraphs">
             <p>Paragraphs:</p>
-            <input type="text" />
+            <input
+              type="number"
+              min="1"
+              max="10"
+              defaultValue="1"
+              onChange={(e) => setInputValue(e.target.value)}
+            />
           </div>
           <div className="tags">
             <p>Tags:</p>
-            <select>
+            <select defaultValue={tag} onChange={(e) => setTag(e.target.value)}>
               <option value="p">&lt;p&gt;</option>
               <option value="h1">&lt;h1&gt;</option>
               <option value="h2">&lt;h2&gt;</option>
@@ -24,14 +43,24 @@ export default function Options() {
           </div>
           <div className="include">
             <p>Include HTML</p>
-            <select>
+            <select
+              defaultValue={includeHtml}
+              onChange={(e) => setIncludeHtml(e.target.value)}
+            >
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </select>
           </div>
         </div>
         <div className="copy">
-          <p>Copy to clipboard</p>
+          <CopyToClipboard
+            text={paragraphs.map((sentence) =>
+              includeHtml === "Yes" ? `<${tag}>${sentence}<${tag}>` : sentence
+            )}
+            onCopy={() => setCopiedCode(true)}
+          >
+            <button>{copiedCode ? "Copied" : "Copy to clipboard"}</button>
+          </CopyToClipboard>
         </div>
       </div>
     </div>
