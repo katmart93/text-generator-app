@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Container from "./components/Container";
 import Title from "./components/Title";
 import Options from "./components/Options";
+import Output from "./components/Output";
 
 // styles
 import "./App.css";
@@ -37,6 +38,7 @@ function App() {
           tag={tag}
           setTag={setTag}
         />
+        <Output paragraphs={paragraphs} includeHtml={includeHtml} tag={tag} />
       </Container>
     </div>
   );

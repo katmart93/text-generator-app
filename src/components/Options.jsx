@@ -55,7 +55,7 @@ export default function Options({
         <div className="copy">
           <CopyToClipboard
             text={paragraphs.map((sentence) =>
-              includeHtml === "Yes" ? `<${tag}>${sentence}<${tag}>` : sentence
+              includeHtml === "Yes" ? `<${tag}>${sentence}</${tag}>` : sentence
             )}
             onCopy={() => setCopiedCode(true)}
           >
